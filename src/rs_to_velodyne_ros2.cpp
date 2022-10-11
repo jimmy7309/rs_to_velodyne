@@ -60,6 +60,8 @@ public:
   {
     using std::placeholders::_1;
 
+    output_frame_id_ = declare_parameter("output_frame_id", "velodyne");
+
     subscription_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(
         "input/points", 10, std::bind(&RsToVelodyne::rsHandler_XYZIRT, this, _1));
     publisher_ = this->create_publisher<sensor_msgs::msg::PointCloud2>("output/points", 10);
@@ -89,7 +91,7 @@ private:
     sensor_msgs::msg::PointCloud2 pc_new_msg;
     pcl::toROSMsg(*new_pc, pc_new_msg);
     pc_new_msg.header = old_msg->header;
-    pc_new_msg.header.frame_id = "velodyne";
+    pc_new_msg.header.frame_id = output_frame_id_;
     publisher_->publish(pc_new_msg);
   }
 
@@ -159,6 +161,7 @@ private:
 
   rclcpp::Subscription<sensor_msgs::msg::PointCloud2>::SharedPtr subscription_;
   rclcpp::Publisher<sensor_msgs::msg::PointCloud2>::SharedPtr publisher_;
+  std::string output_frame_id_;
 };
 
 int main(int argc, char** argv)
