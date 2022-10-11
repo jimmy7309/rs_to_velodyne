@@ -4,9 +4,11 @@
 
    <!-- <arg name="output_points" default="/velodyne_points"/> -->
    <arg name="output_points" default="/sensing/lidar/top/pointcloud_raw_ex"/> <!-- For Autoware -->
+   <arg name="output_frame_id" default="velodyne_top"/> <!-- For Autoware -->
 
   <node pkg="rs_to_velodyne_ros2" exec="rs_to_velodyne_ros2" output="screen">
     <remap from="input/points" to="$(var input_points)"/>
     <remap from="output/points" to="$(var output_points)"/>
+    <remap from="output_frame_id" to="$(var output_frame_id)"/>
   </node>
 </launch>
