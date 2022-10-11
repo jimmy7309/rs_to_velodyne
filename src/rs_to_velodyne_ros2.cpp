@@ -62,8 +62,8 @@ class RsToVelodyne : public rclcpp::Node
         using std::placeholders::_1;
 
         subscription_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(
-                "/rslidar_points", 10, std::bind(&RsToVelodyne::rsHandler_XYZIRT, this, _1));
-        publisher_ = this->create_publisher<sensor_msgs::msg::PointCloud2>("/velodyne_points", 10); 
+                "input/points", 10, std::bind(&RsToVelodyne::rsHandler_XYZIRT, this, _1));
+        publisher_ = this->create_publisher<sensor_msgs::msg::PointCloud2>("output/points", 10); 
     }
 
   private:
