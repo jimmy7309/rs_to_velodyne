@@ -55,42 +55,14 @@ POINT_CLOUD_REGISTER_POINT_STRUCT (VelodynePointXYZIR,
 
 class RsToVelodyne : public rclcpp::Node
 {
-<<<<<<< HEAD
-  public:
-    RsToVelodyne()
-    : Node("ros_to_velodyne_ros2")
-    {
-        using std::placeholders::_1;
-
-        subscription_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(
-                "input/points", 10, std::bind(&RsToVelodyne::rsHandler_XYZIRT, this, _1));
-        publisher_ = this->create_publisher<sensor_msgs::msg::PointCloud2>("output/points", 10); 
-    }
-
-  private:
-    void rsHandler_XYZIRT(const sensor_msgs::msg::PointCloud2 &pc_msg) const 
-    {
-        pcl::PointCloud<RsPointXYZIRT>::Ptr pc_in(new pcl::PointCloud<RsPointXYZIRT>());
-        pcl::fromROSMsg(pc_msg, *pc_in);
-
-        pcl::PointCloud<VelodynePointXYZIRT>::Ptr pc_out(new pcl::PointCloud<VelodynePointXYZIRT>());
-        handle_pc_msg(pc_in, pc_out);
-        add_ring(pc_in, pc_out);
-        add_time(pc_in, pc_out);
-
-        this->publish_points(pc_out, pc_msg);
-    }
-
-    void publish_points(pcl::PointCloud<VelodynePointXYZIRT>::Ptr &new_pc, const sensor_msgs::msg::PointCloud2 &old_msg)  const
-=======
 public:
   RsToVelodyne() : Node("ros_to_velodyne_ros2")
   {
     using std::placeholders::_1;
 
     subscription_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(
-        "/rslidar_points", 10, std::bind(&RsToVelodyne::rsHandler_XYZIRT, this, _1));
-    publisher_ = this->create_publisher<sensor_msgs::msg::PointCloud2>("/velodyne_points", 10);
+        "input/points", 10, std::bind(&RsToVelodyne::rsHandler_XYZIRT, this, _1));
+    publisher_ = this->create_publisher<sensor_msgs::msg::PointCloud2>("output/points", 10);
   }
 
 private:
@@ -127,7 +99,6 @@ private:
     // pcl remove nan not work normally
     // ROS_ERROR("Containing nan point!");
     if (pcl_isnan(point.x) || pcl_isnan(point.y) || pcl_isnan(point.z))
->>>>>>> 0de4ef786f79713ad0076467671e9b6fcdd74c37
     {
       return true;
     }
