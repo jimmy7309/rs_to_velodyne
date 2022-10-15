@@ -9,6 +9,6 @@
   <node pkg="rs_to_velodyne_ros2" exec="rs_to_velodyne_ros2" output="screen">
     <remap from="input/points" to="$(var input_points)"/>
     <remap from="output/points" to="$(var output_points)"/>
-    <remap from="output_frame_id" to="$(var output_frame_id)"/>
+    <param name ="output_frame_id" value="$(var output_frame_id)"/>
   </node>
 </launch>

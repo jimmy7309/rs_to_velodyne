@@ -61,6 +61,9 @@ public:
     using std::placeholders::_1;
 
     output_frame_id_ = declare_parameter("output_frame_id", "velodyne");
+    RCLCPP_INFO( this->get_logger(), "output_frame_id  : '%s' !",output_frame_id_.c_str() );
+
+
 
     subscription_ = this->create_subscription<sensor_msgs::msg::PointCloud2>(
         "input/points", 10, std::bind(&RsToVelodyne::rsHandler_XYZIRT, this, _1));
