@@ -21,6 +21,7 @@ find_package(sensor_msgs REQUIRED)
 include_directories(
   ${PCL_INCLUDE_DIRS}
   ${PCL_COMMON_INCLUDE_DIRS}
+  ${pcl_conversions_INCLUDE_DIRS}
 )
 
 add_executable(${PROJECT_NAME}  src/rs_to_velodyne_ros2.cpp)
